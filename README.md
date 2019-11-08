@@ -7,5 +7,7 @@
 
 ### Command line flags
 
-By default the size will be 1920x1080
-This can be overwritten with ./resize.py width height
+* -h Displays help
+* -W --width WIDTH         Sets image width (Defaults to 1920)
+* -H --height HEIGHT       Sets image height (Defaults to 1080)
+* -t --type TYPE           Sets the image type (Currently defaults to jpg) png is slower but supports transparency
