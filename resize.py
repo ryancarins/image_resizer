@@ -6,7 +6,6 @@ bars on edges instead of stretching
 import glob
 import pathlib
 import argparse
-import sys
 from PIL import Image
 
 
@@ -75,7 +74,7 @@ def main():
     parser.add_argument('-H', '--height', type=int, default=1080)
     parser.add_argument('-t', '--type', type=str, choices=["png", "jpg"],
                         default="jpg")
-    
+
     args = parser.parse_args()
     paths = load_images()
     resize(paths, args.width, args.height, args.type)
