@@ -1,8 +1,16 @@
-from PIL import Image
+'''
+Stitches images together for use over dual monitors
+'''
+
 import glob
+from PIL import Image
 
 
-def loadImages():
+def load_images():
+    '''
+    Load images from reszied and stitchIn dirs
+    '''
+
     # Glob is not case sensitive so this works for PNG, etc
     extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp']
     paths = list()
@@ -11,21 +19,26 @@ def loadImages():
     for extension in extensions:
         paths += glob.glob(f"resized/*.{extension}")
         paths += glob.glob(f"stitchIn/*.{extension}")
-    return(paths)
+    return paths
 
 
-def stitchImages(imagePaths):
-    images = [Image.open(i) for i in imagePaths]
-    for i in range(len(images)):
+def stitch_images(image_paths):
+    '''Stitch and the images at paths in list'''
+
+    images = [Image.open(i) for i in image_paths]
+    for i, image in enumerate(images):
         # Stitch the previous and current image together
         # Using previous because -1 is not out of bounds
-        size = (images[i-1].width + images[i].width,
-                max(images[i-1].height, images[i].height))
-        stitchedImage = Image.new('RGBA', size)
-        stitchedImage.paste(images[i-1])
-        stitchedImage.paste(images[i], (images[i-1].width, 0))
-        stitchedImage.save(f"stitched/{i}.png")
+        size = (images[i-1].width + image.width,
+                max(images[i-1].height, image.height))
+        stitched_image = Image.new('RGBA', size)
+        stitched_image.paste(images[i-1])
+        stitched_image.paste(image, (images[i-1].width, 0))
+        stitched_image.save(f"stitched/{i}.png")
 
+def main():
+    '''Entry point'''
+    paths = load_images()
+    stitch_images(paths)
 
-paths = loadImages()
-stitchImages(paths)
+main()
