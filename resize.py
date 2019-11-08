@@ -8,11 +8,11 @@ import sys
 # Save image as the next available integer
 def saveImage(image):
     i = 0
-    path = pathlib.Path(f"output/{i}.png")
+    path = pathlib.Path(f"resized/{i}.png")
     while(path.exists()):
         i += 1
-        path = pathlib.Path(f"output/{i}.png")
-    image.save(f"output/{i}.png")
+        path = pathlib.Path(f"resized/{i}.png")
+    image.save(f"resized/{i}.png")
 
 
 # Create a list of image paths on disk
@@ -52,7 +52,7 @@ def resize(imagePaths, width, height):
 
 # Create folders just to make sure they exist
 pathlib.Path('input').mkdir(parents=True, exist_ok=True)
-pathlib.Path('output').mkdir(parents=True, exist_ok=True)
+pathlib.Path('resized').mkdir(parents=True, exist_ok=True)
 
 # If there are arguments they are width x height
 # Otherwise assume 1920x1080
