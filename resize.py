@@ -6,7 +6,6 @@ bars on edges instead of stretching
 import glob
 import pathlib
 import argparse
-import sys
 from PIL import Image
 
 
@@ -42,7 +41,7 @@ def resize(image_paths, width, height, image_type):
 
     # Load all paths as Image objects
     images = [Image.open(i) for i in image_paths]
-    for image in images:
+    for i, image in enumerate(images):
         if image_type == "png":
             canvas = Image.new("RGBA", (width, height), "#000000")
         else:
@@ -61,6 +60,7 @@ def resize(image_paths, width, height, image_type):
             canvas.paste(image, (int((width / 2) - (image.width / 2)), 0))
 
         save_image(canvas, image_type)
+        del images[i]
 
 
 def main():
@@ -75,7 +75,7 @@ def main():
     parser.add_argument('-H', '--height', type=int, default=1080)
     parser.add_argument('-t', '--type', type=str, choices=["png", "jpg"],
                         default="jpg")
-    
+
     args = parser.parse_args()
     paths = load_images()
     resize(paths, args.width, args.height, args.type)
