@@ -70,14 +70,13 @@ def main():
     pathlib.Path('input').mkdir(parents=True, exist_ok=True)
     pathlib.Path('resized').mkdir(parents=True, exist_ok=True)
 
-    if len(sys.argv) > 1:
-        parser = argparse.ArgumentParser(description='Image resizer')
-        parser.add_argument('-W', '--width', type=int, default=1920)
-        parser.add_argument('-H', '--height', type=int, default=1080)
-        parser.add_argument('-t', '--type', type=str, choices=["png", "jpg"],
-                            default="jpg")
-        args = parser.parse_args()
-
+    parser = argparse.ArgumentParser(description='Image resizer')
+    parser.add_argument('-W', '--width', type=int, default=1920)
+    parser.add_argument('-H', '--height', type=int, default=1080)
+    parser.add_argument('-t', '--type', type=str, choices=["png", "jpg"],
+                        default="jpg")
+    
+    args = parser.parse_args()
     paths = load_images()
     resize(paths, args.width, args.height, args.type)
 
