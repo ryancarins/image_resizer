@@ -12,8 +12,8 @@ def load_images():
     Load images from reszied and stitchIn dirs
     '''
 
-    # Glob is not case sensitive so this works for PNG, etc
-    extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp']
+    extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp',
+                  'PNG', 'JPG', 'JPEG', 'GIF', 'TIFF', 'BMP']
     paths = list()
 
     # Get the file names of all images

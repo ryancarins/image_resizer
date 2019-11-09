@@ -11,7 +11,7 @@ from PIL import Image
 
 def save_images(images, image_type):
     '''Save image as the next available integer'''
-    
+
     for image in images:
         i = 0
         path = pathlib.Path(f"resized/{i}.{image_type}")
@@ -24,14 +24,14 @@ def save_images(images, image_type):
 def load_images():
     ''' Create a list of image objects '''
 
-    # Glob is not case sensitive so this works for PNG, etc
-    extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp']
+    extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp',
+                  'PNG', 'JPG', 'JPEG', 'GIF', 'TIFF', 'BMP']
     paths = list()
 
     # Get the file names of all known image types in input folder
     for extension in extensions:
         paths += glob.glob(f"input/*.{extension}")
-    
+
     images = [Image.open(i) for i in paths]
     return images
 
