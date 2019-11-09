@@ -82,6 +82,5 @@ def main():
     images = load_images()
     resize(images, args.width, args.height, args.type)
     save_images(images, args.type)
-    print(len(images))
 
 main()
