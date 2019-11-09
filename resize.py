@@ -9,19 +9,20 @@ import argparse
 from PIL import Image
 
 
-def save_image(image, image_type):
+def save_images(images, image_type):
     '''Save image as the next available integer'''
-
-    i = 0
-    path = pathlib.Path(f"resized/{i}.{image_type}")
-    while path.exists():
-        i += 1
+    
+    for image in images:
+        i = 0
         path = pathlib.Path(f"resized/{i}.{image_type}")
-    image.save(f"resized/{i}.{image_type}")
+        while path.exists():
+            i += 1
+            path = pathlib.Path(f"resized/{i}.{image_type}")
+        image.save(f"resized/{i}.{image_type}")
 
 
 def load_images():
-    ''' Create a list of image paths on disk '''
+    ''' Create a list of image objects '''
 
     # Glob is not case sensitive so this works for PNG, etc
     extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp']
@@ -30,18 +31,19 @@ def load_images():
     # Get the file names of all known image types in input folder
     for extension in extensions:
         paths += glob.glob(f"input/*.{extension}")
-    return paths
+    
+    images = [Image.open(i) for i in paths]
+    return images
 
 
-def resize(image_paths, width, height, image_type):
+def resize(images, width, height, image_type):
     '''
     Create and save image of size width x height
     Add black bars to ensure correct ratio
     '''
 
     # Load all paths as Image objects
-    images = [Image.open(i) for i in image_paths]
-    for image in images:
+    for i, image in enumerate(images):
         if image_type == "png":
             canvas = Image.new("RGBA", (width, height), "#000000")
         else:
@@ -59,7 +61,8 @@ def resize(image_paths, width, height, image_type):
         else:
             canvas.paste(image, (int((width / 2) - (image.width / 2)), 0))
 
-        save_image(canvas, image_type)
+        images[i] = canvas
+    return images
 
 
 def main():
@@ -76,7 +79,9 @@ def main():
                         default="jpg")
 
     args = parser.parse_args()
-    paths = load_images()
-    resize(paths, args.width, args.height, args.type)
+    images = load_images()
+    resize(images, args.width, args.height, args.type)
+    save_images(images, args.type)
+    print(len(images))
 
 main()
