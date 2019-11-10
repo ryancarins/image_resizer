@@ -36,7 +36,7 @@ def stitch_images(image_paths, image_type, number_monitors):
         size = (image.width*number_monitors, image.height)
         stitched_image = Image.new(mode, size)
         for j in range(number_monitors):
-            stitched_image.paste(images[i-j], (horizontal_position, 0))
+            stitched_image.paste(images[(i + j) % len(images)], (horizontal_position, 0))
             horizontal_position += image.width
         stitched_image.save(f"stitched/{i}.{image_type}")
 
@@ -45,7 +45,8 @@ def valid_number(value):
     '''Check that the number of monitors is valid for argparse'''
     number_monitors = int(value)
     if number_monitors < 2:
-        raise argparse.ArgumentTypeError(f"{number_monitors} is an invalid positive int value")
+        raise argparse.ArgumentTypeError(
+            f"{number_monitors} is invalid. 2 or more monitors required")
     return number_monitors
 
 def main():
