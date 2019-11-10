@@ -25,3 +25,9 @@
 * -h					Displays help
 * -n NUMBER_MONITORS	Sets the number of monitors
 
+## Planned
+
+Currently the resizer and the stitcher are separate
+this may not change but I would like to add the ability
+for the stitcher to resize images appropriately so the user
+doesn't need to do two steps
