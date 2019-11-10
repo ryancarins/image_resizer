@@ -23,7 +23,7 @@ def load_images():
     return paths
 
 
-def stitch_images(image_paths, image_type):
+def stitch_images(image_paths, image_type, number_monitors):
     '''Stitch and the images at paths in list'''
     if image_type == "png":
         mode = 'RGBA'
@@ -32,14 +32,21 @@ def stitch_images(image_paths, image_type):
 
     images = [Image.open(i) for i in image_paths]
     for i, image in enumerate(images):
-        # Stitch the previous and current image together
-        # Using previous because -1 is not out of bounds
-        size = (image.width*2, image.height)
+        horizontal_position = 0 #The current horizonal position so we know where to paste
+        size = (image.width*number_monitors, image.height)
         stitched_image = Image.new(mode, size)
-        stitched_image.paste(images[i-1])
-        stitched_image.paste(image, (image.width, 0))
+        for j in range(number_monitors):
+            stitched_image.paste(images[i-j], (horizontal_position, 0))
+            horizontal_position += image.width
         stitched_image.save(f"stitched/{i}.{image_type}")
 
+
+def valid_number(value):
+    '''Check that the number of monitors is valid for argparse'''
+    number_monitors = int(value)
+    if number_monitors < 2:
+        raise argparse.ArgumentTypeError(f"{number_monitors} is an invalid positive int value")
+    return number_monitors
 
 def main():
     '''Entry point'''
@@ -47,9 +54,10 @@ def main():
     parser = argparse.ArgumentParser(description='Image stitcher')
     parser.add_argument('-t', '--type', type=str, choices=["png", "jpg"],
                         default="jpg")
+    parser.add_argument('-n', '--number_monitors', type=valid_number, default=2)
 
     args = parser.parse_args()
     paths = load_images()
-    stitch_images(paths, args.type)
+    stitch_images(paths, args.type, args.number_monitors)
 
 main()
