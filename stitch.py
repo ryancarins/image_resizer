@@ -55,6 +55,9 @@ def valid_number(value):
 def main():
     '''Entry point'''
 
+    pathlib.Path('stitchIn').mkdir(parents=True, exist_ok=True)
+    pathlib.Path('stitched').mkdir(parents=True, exist_ok=True)
+
     parser = argparse.ArgumentParser(description='Image stitcher')
     parser.add_argument('-t', '--type', type=str,
                         choices=["png", "jpg"],
