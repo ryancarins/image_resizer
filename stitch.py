@@ -4,6 +4,7 @@ Stitches images together for use over dual monitors
 
 import glob
 import argparse
+import pathlib
 from PIL import Image
 
 
