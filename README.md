@@ -1,9 +1,20 @@
 ## Image Resizer
 
+### Description
+
+The image resizer scales images to a given resolution (default 1920x1080)
+with black bars to maintain aspect ratio.
+And the image stitcher combines images for use across multiple screens
+
+This is just a python script I wrote partially for practice and
+to quickly resize images for use as desktop backgrounds when I'm 
+using windows. There may be issues and should be used at your own risk
+
 ### Requirements
 
 * Python 3.4 (Only tested on 3.7)
 * pillow
+
 
 ### Command line flags
 
