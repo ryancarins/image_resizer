@@ -83,4 +83,5 @@ def main():
     resize(images, args.width, args.height, args.type)
     save_images(images, args.type)
 
+
 main()

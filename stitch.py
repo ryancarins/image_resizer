@@ -32,11 +32,13 @@ def stitch_images(image_paths, image_type, number_monitors):
 
     images = [Image.open(i) for i in image_paths]
     for i, image in enumerate(images):
-        horizontal_position = 0 #The current horizonal position so we know where to paste
+        # The current horizonal position so we know where to paste
+        horizontal_position = 0
         size = (image.width*number_monitors, image.height)
         stitched_image = Image.new(mode, size)
         for j in range(number_monitors):
-            stitched_image.paste(images[(i + j) % len(images)], (horizontal_position, 0))
+            stitched_image.paste(
+                images[(i + j) % len(images)], (horizontal_position, 0))
             horizontal_position += image.width
         stitched_image.save(f"stitched/{i}.{image_type}")
 
@@ -49,16 +51,21 @@ def valid_number(value):
             f"{number_monitors} is invalid. 2 or more monitors required")
     return number_monitors
 
+
 def main():
     '''Entry point'''
 
     parser = argparse.ArgumentParser(description='Image stitcher')
-    parser.add_argument('-t', '--type', type=str, choices=["png", "jpg"],
+    parser.add_argument('-t', '--type', type=str,
+                        choices=["png", "jpg"],
                         default="jpg")
-    parser.add_argument('-n', '--number_monitors', type=valid_number, default=2)
+    parser.add_argument('-n', '--number_monitors',
+                        type=valid_number,
+                        default=2)
 
     args = parser.parse_args()
     paths = load_images()
     stitch_images(paths, args.type, args.number_monitors)
+
 
 main()
