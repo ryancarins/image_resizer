@@ -12,8 +12,8 @@ from PIL import Image
 def save_images(images, image_type):
     '''Save image as the next available integer'''
 
+    i = 0
     for image in images:
-        i = 0
         path = pathlib.Path(f"resized/{i}.{image_type}")
         while path.exists():
             i += 1
