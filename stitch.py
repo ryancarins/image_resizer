@@ -13,8 +13,7 @@ def load_images():
     Load images from reszied and stitchIn dirs
     '''
 
-    extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp',
-                  'PNG', 'JPG', 'JPEG', 'GIF', 'TIFF', 'BMP']
+    extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp']
     paths = list()
 
     # Get the file names of all images

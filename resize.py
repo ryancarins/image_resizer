@@ -24,8 +24,7 @@ def save_images(images, image_type):
 def load_images():
     ''' Create a list of image objects '''
 
-    extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp',
-                  'PNG', 'JPG', 'JPEG', 'GIF', 'TIFF', 'BMP']
+    extensions = ['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bmp']
     paths = list()
 
     # Get the file names of all known image types in input folder
